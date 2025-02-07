@@ -24,6 +24,7 @@ class ScheduleStatusFilter implements Filter
             ScheduleStatusEnum::in_progress->name => $query->inProgress(),
             (string) ScheduleStatusEnum::upcoming->value,
             ScheduleStatusEnum::upcoming->name => $query->inTheFuture(),
+            'visible' => $query->activeAndScheduled(),
             default => null,
         };
     }

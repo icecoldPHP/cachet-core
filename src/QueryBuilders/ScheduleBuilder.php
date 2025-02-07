@@ -67,4 +67,22 @@ class ScheduleBuilder extends Builder
             ->whereNotNull('completed_at');
         return $this;
     }
+
+    public function activeAndScheduled()
+    {
+        $this->where(function (ScheduleBuilder $query) {
+            $query->where(function (ScheduleBuilder $query) {
+                $query->whereDate('scheduled_at', '<=', Carbon::now())
+                    ->where(function (ScheduleBuilder $query) {
+                        $query->where('completed_at', '>=', Carbon::now())
+                            ->orWhereNull('completed_at');
+                    });
+            })->orWhere(function (ScheduleBuilder $query) {
+                $this->where('scheduled_at', '>=', Carbon::now());
+            });
+        });
+
+
+        return $this;
+    }
 }
