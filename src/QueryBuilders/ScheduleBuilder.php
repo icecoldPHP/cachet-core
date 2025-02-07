@@ -72,7 +72,7 @@ class ScheduleBuilder extends Builder
     {
         $this->where(function (ScheduleBuilder $query) {
             $query->where(function (ScheduleBuilder $query) {
-                $query->whereDate('scheduled_at', '<=', Carbon::now())
+                $query->where('scheduled_at', '<=', Carbon::now())
                     ->where(function (ScheduleBuilder $query) {
                         $query->where('completed_at', '>=', Carbon::now())
                             ->orWhereNull('completed_at');
