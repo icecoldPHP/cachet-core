@@ -78,7 +78,7 @@ class ScheduleBuilder extends Builder
                             ->orWhereNull('completed_at');
                     });
             })->orWhere(function (ScheduleBuilder $query) {
-                $this->where('scheduled_at', '>=', Carbon::now());
+                $query->where('scheduled_at', '>=', Carbon::now());
             });
         });
 
